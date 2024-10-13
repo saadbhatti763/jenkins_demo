@@ -4,21 +4,16 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git url: 'https://github.com/saadbhatti763/jenkins_demo.git', branch: 'main'
+                // Cloning the Git repository containing Jenkinsfile and index.html
+                git 'https://github.com/saadbhatti763/jenkins_demo.git'
             }
         }
 
-        stage('Build') {
+        stage('Copy Files to /var/www/html') {
             steps {
-                sh 'echo "Building the app..."'
-            }
-        }
-
-        stage('Deploy') {
-            steps {
+                // Copy Jenkinsfile and index.html to /var/www/html using sudo without password prompt
                 sh '''
-                    sudo cp -r * /var/www/html/
-                    sudo systemctl reload nginx
+                sudo cp -r Jenkinsfile index.html /var/www/html/
                 '''
             }
         }
@@ -26,10 +21,10 @@ pipeline {
 
     post {
         success {
-            echo 'Deployment successful!'
+            echo 'Deployment Successful!'
         }
         failure {
-            echo 'Deployment failed.'
+            echo 'Deployment Failed.'
         }
     }
 }
