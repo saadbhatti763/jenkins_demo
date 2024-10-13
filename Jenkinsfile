@@ -5,7 +5,7 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 // Cloning the Git repository containing Jenkinsfile and index.html
-                git 'https://github.com/saadbhatti763/jenkins_demo.git'
+                git branch: 'main', url: 'https://github.com/saadbhatti763/jenkins_demo.git'
             }
         }
 
